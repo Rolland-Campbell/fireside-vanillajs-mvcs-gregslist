@@ -8,6 +8,7 @@ export class CarsController extends BaseController {
     super("api/cars")
     this.router
       .get("", this.getAll)
+      .get("/:id", this.getById)
       .post('', this.create)
       .put("/:id", this.edit)
       .delete("/:id", this.delete)
@@ -20,11 +21,15 @@ export class CarsController extends BaseController {
     } catch (error) {
       next(error)
     }
+  }
 
-    //NOTE these are the same
-    // carsService.getAll().then(cars=>{
-    // res.send(cars)
-    // }).catch(err => next(err))
+  async getById(req, res, next) {
+    try {
+      let data = await carsService.getById(req.params.id)
+      res.send({ data: data, message: "here it is" })
+    } catch (error) {
+      next(error)
+    }
   }
 
   async create(req, res, next) {
@@ -38,7 +43,7 @@ export class CarsController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      let data = await carsService.edit(req.body, req.params.id)
+      let data = await carsService.edit(req.params.id, req.body)
       res.send({ data: data, message: "Car editted!" })
     } catch (error) {
       next(error)

@@ -10,7 +10,10 @@ export class HousesController extends BaseController {
     super("api/houses")
     this.router
       .get("", this.getAll)
+      .get("/:id", this.getById)
       .post('', this.create)
+      .put("/:id", this.edit)
+      .delete("/:id", this.delete)
   }
 
   async getAll(req, res, next) {
@@ -22,6 +25,14 @@ export class HousesController extends BaseController {
     }
   }
 
+  async getById(req, res, next) {
+    try {
+      let data = await housesService.getById(req.params.id)
+      res.send({ data: data, message: "here it is" })
+    } catch (error) {
+      next(error)
+    }
+  }
   async create(req, res, next) {
     try {
       let house = await housesService.create(req.body)
@@ -31,6 +42,22 @@ export class HousesController extends BaseController {
     }
   }
 
+  async edit(req, res, next) {
+    try {
+      let data = await housesService.edit(req.params.id, req.body)
+      res.send({ data: data, message: "house editted!" })
+    } catch (error) {
+      next(error)
+    }
+  }
 
+  async delete(req, res, next) {
+    try {
+      let data = await housesService.delete(req.params.id)
+      res.send({ data: data, message: "car deleted!" })
+    } catch (error) {
+      next(error)
+    }
+  }
 
 }

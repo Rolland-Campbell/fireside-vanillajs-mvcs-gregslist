@@ -3,14 +3,13 @@ import BaseController from "../utils/BaseController";
 import { carsService } from "../services/CarsService";
 
 
-
-
 export class CarsController extends BaseController {
   constructor() {
     super("api/cars")
     this.router
       .get("", this.getAll)
       .post('', this.create)
+      .put("/:id", this.edit)
   }
 
   async getAll(req, res, next) {
@@ -31,11 +30,18 @@ export class CarsController extends BaseController {
     try {
       let car = await carsService.create(req.body)
       res.send({ data: car, message: "car created!" })
-    } catch (err) {
-      next(err)
+    } catch (error) {
+      next(error)
     }
   }
 
-
+  async edit(req, res, next) {
+    try {
+      let carToEdit = await carsService.edit(req.body, req.params.id)
+      res.send({ data: carToEdit, message: "Car editted!" })
+    } catch (error) {
+      next(error)
+    }
+  }
 
 }

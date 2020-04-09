@@ -10,12 +10,13 @@ export class CarsController extends BaseController {
       .get("", this.getAll)
       .post('', this.create)
       .put("/:id", this.edit)
+      .delete("/:id", this.delete)
   }
 
   async getAll(req, res, next) {
     try {
-      let cars = await carsService.getAll()
-      res.send({ data: cars, message: "This is where the cars live, get you one!" })
+      let data = await carsService.getAll()
+      res.send({ data: data, message: "This is where the cars live, get you one!" })
     } catch (error) {
       next(error)
     }
@@ -28,8 +29,8 @@ export class CarsController extends BaseController {
 
   async create(req, res, next) {
     try {
-      let car = await carsService.create(req.body)
-      res.send({ data: car, message: "car created!" })
+      let data = await carsService.create(req.body)
+      res.send({ data: data, message: "car created!" })
     } catch (error) {
       next(error)
     }
@@ -37,8 +38,17 @@ export class CarsController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      let carToEdit = await carsService.edit(req.body, req.params.id)
-      res.send({ data: carToEdit, message: "Car editted!" })
+      let data = await carsService.edit(req.body, req.params.id)
+      res.send({ data: data, message: "Car editted!" })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async delete(req, res, next) {
+    try {
+      let data = await carsService.delete(req.params.id)
+      res.send({ data: data, message: "car deleted!" })
     } catch (error) {
       next(error)
     }

@@ -15,6 +15,10 @@ class CarsService {
   async edit(body, id) {
     return await dbContext.Cars.findByIdAndUpdate(body, { _id: id })
   }
+
+  async delete(id) {
+    return await dbContext.Cars.findByIdAndRemove(id)
+  }
 }
 
 export const carsService = new CarsService()

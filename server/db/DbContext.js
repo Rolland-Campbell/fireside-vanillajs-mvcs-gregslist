@@ -1,11 +1,13 @@
 import ValueSchema from "../models/Value";
 import CarSchema from "../models/Car";
+import HouseSchema from "../models/House"
 import mongoose from "mongoose";
 
 class DbContext {
+  //FIXME add reference to schemas
   Values = mongoose.model("Value", ValueSchema);
-  //FIXME add reference to carschema
-  Cars = mongoose.model("Car", CarSchema)
+  Cars = mongoose.model("Car", CarSchema);
+  Houses = mongoose.model("House", HouseSchema)
 }
 
 export const dbContext = new DbContext();

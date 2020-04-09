@@ -3,8 +3,8 @@ import { dbContext } from "../db/DbContext";
 
 class HousesService {
   async getAll() {
-    let houses = await dbContext.Houses.find()
-    return houses
+    let data = await dbContext.Houses.find()
+    return data
   }
 
   async getById(id) {
@@ -13,8 +13,8 @@ class HousesService {
   }
 
   async create(body) {
-    let house = await dbContext.Houses.create(body)
-    return house
+    let data = await dbContext.Houses.create(body)
+    return data
   }
 
 

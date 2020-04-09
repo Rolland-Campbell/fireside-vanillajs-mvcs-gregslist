@@ -15,8 +15,8 @@ export class JobsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      let jobs = await jobsService.getAll()
-      res.send({ data: jobs, message: "This is where the jobs live, get you one!" })
+      let data = await jobsService.getAll()
+      res.send({ data: data, message: "This is where the jobs live, get you one!" })
     } catch (error) {
       next(error)
     }
@@ -24,8 +24,8 @@ export class JobsController extends BaseController {
 
   async create(req, res, next) {
     try {
-      let job = await jobsService.create(req.body)
-      res.send({ data: job, message: "job created!" })
+      let data = await jobsService.create(req.body)
+      res.send({ data: data, message: "job created!" })
     } catch (err) {
       next(err)
     }
